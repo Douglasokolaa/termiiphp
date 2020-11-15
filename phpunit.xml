@@ -1,0 +1,15 @@
+<phpunit bootstrap="vendor/autoload.php"			
+			colors="true"
+            testdox="true"
+			convertErrorsToExceptions="true"
+			convertNoticesToExceptions="true"
+			convertWarningsToExceptions="true">
+			<testsuites>
+				<testsuite name="Unit Tests">
+					<directory>tests</directory>
+				</testsuite>
+			</testsuites>
+            <php>
+                <server name="API_KEY" value="testing"/>
+            </php>
+</phpunit>
