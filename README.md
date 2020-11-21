@@ -37,7 +37,7 @@ Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) an
 
 ```bash
 # Installation
-$ composer require Douglasokolaa/termiiphp
+$ composer require douglasokolaa/termiiphp
 ```
 
 
