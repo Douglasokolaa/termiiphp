@@ -40,8 +40,6 @@ Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) an
 $ composer require douglasokolaa/termiiphp
 ```
 
-
-
 ## :hammer: Countribution
 
 ```bash
