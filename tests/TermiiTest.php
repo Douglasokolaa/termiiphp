@@ -8,8 +8,6 @@ use Okolaa\TermiiPHP\Termii;
 
 class TermiiTest extends TestCase
 {
-
-  protected $pinId;
   protected $verifySSL = false;
 
   public function __construct()
@@ -21,10 +19,6 @@ class TermiiTest extends TestCase
 
   /**
    * check if the Termii has no syntax error 
-   *
-   * This is just a simple check to make sure your library has no syntax error. This helps you troubleshoot
-   * any typo before you even use this library in a real project.
-   *
    */
   public function testCheckForSyntaxError()
   {
@@ -129,7 +123,6 @@ class TermiiTest extends TestCase
     $this->assertIsArray($response, "Invalid Response");
     $this->assertEquals("ok", $response["code"]);
   }
-
 
   public function testGetSenderIds()
   {

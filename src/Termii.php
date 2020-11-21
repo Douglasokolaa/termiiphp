@@ -24,7 +24,7 @@ class Termii
     public $verifySSL = true;
 
     /**
-     * Termii SMS constructor.
+     * Termii constructor.
      */
     public function __construct($senderId = 'N-Alert', $apiKey = '')
     {
@@ -52,6 +52,7 @@ class Termii
 
     /**
      * Request Payload
+     * @return array
      */
     protected function payload()
     {
@@ -86,9 +87,9 @@ class Termii
     protected function get(string $path, array $payload)
     {
         $response = $this->client()->get('api/' . $path, [
-            'headers' => ['Content-Type' => 'application/json'],
-            'query' => $this->payload(),
-            'verify' => $this->verifySSL
+            'headers'   => ['Content-Type' => 'application/json'],
+            'query'     => $payload,
+            'verify'    => $this->verifySSL
         ]);
 
         $this->response = $response;
