@@ -1,4 +1,4 @@
-<h1 align="center">Termii Php</h1>
+<h1 align="center">Termii PHP</h1>
 
 <p align="center">
   <img alt="Github top language" src="https://img.shields.io/github/languages/top/Douglasokolaa/termiiphp?color=56BEB8">
