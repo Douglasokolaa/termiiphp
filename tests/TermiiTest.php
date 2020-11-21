@@ -2,11 +2,21 @@
 
 namespace Tests;
 
+use Dotenv\Dotenv;
+use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
-use Okolaa\TermiiPhp\Termii;
+use Okolaa\TermiiPHP\Termii;
 
 class TermiiTest extends TestCase
 {
+
+  public function __construct()
+  {
+    parent::__construct();
+    $dotenv = Dotenv::createImmutable(__DIR__ . "/..");
+    $dotenv->load();
+  }
+
   /**
    * check if the Termii has no syntax error 
    *
@@ -16,8 +26,9 @@ class TermiiTest extends TestCase
    */
   public function testCheckForSyntaxError()
   {
-    $var = new Termii;
-    $this->assertTrue(is_object($var));
-    unset($var);
+    $termii = new Termii;
+    $this->assertTrue(is_object($termii));
+    unset($termii);
   }
+
 }

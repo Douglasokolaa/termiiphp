@@ -1,11 +1,12 @@
 <phpunit bootstrap="vendor/autoload.php"			
 			colors="true"
             testdox="true"
+			verbose="true"
 			convertErrorsToExceptions="true"
 			convertNoticesToExceptions="true"
 			convertWarningsToExceptions="true">
 			<testsuites>
-				<testsuite name="Unit Tests">
+				<testsuite name="Termii Tests">
 					<directory>tests</directory>
 				</testsuite>
 			</testsuites>

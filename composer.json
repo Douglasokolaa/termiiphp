@@ -9,13 +9,14 @@
         "api"
     ],
     "require": {
-        "guzzlehttp/guzzle": "^6.2 || ^7.0"
+        "guzzlehttp/guzzle": "^6.2 || ^7.0",
+        "vlucas/phpdotenv": "^5.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.4"
     },
     "autoload": {
-        "psr-4": { "Okolaa\\TermiiPhp\\" : "src/" }
+        "psr-4": { "Okolaa\\TermiiPHP\\" : "src/" }
     },
     "autoload-dev": {
         "psr-4": {

@@ -1,14 +1,16 @@
 <?php
 
-namespace Okolaa\TermiiPhp;
+namespace Okolaa\TermiiPHP;
 
 use GuzzleHttp\Client;
+
 /**
- * Termii APi Library for PHP
+ * Termii SMS APi Library for PHP
  * @author Douglas Okolaa
  */
 class Termii
 {
+    protected $apiKey;
     protected $senderId;
     protected $maxAttempts = 3;
     protected $pinTimeToLive = 0;
@@ -19,15 +21,15 @@ class Termii
     protected $tokenMessageType = "ALPHANUMERIC";
     protected $messageType = "plain";
     protected $response;
-    protected $payload = [];
+    public $verifySSL = true;
 
     /**
-     * Termii constructor.
+     * Termii SMS constructor.
      */
     public function __construct($senderId = 'N-Alert', $apiKey = '')
     {
         $this->senderId = $senderId;
-        $this->payload = ["api_key" => $apiKey];
+        $this->apiKey   = $apiKey;
     }
 
     /**
@@ -49,21 +51,47 @@ class Termii
     }
 
     /**
+     * Request Payload
+     */
+    protected function payload()
+    {
+        return ["api_key" => $this->apiKey];
+    }
+
+    /**
+     * Submit post request to Termii
+     * @param string $path
+     * @param array $body
+     * @return object Request response body
+     */
+    protected function post(string $path, array $body)
+    {
+        $response = $this->client()->post('/api/' . $path, [
+            'headers' => ['Content-Type' => 'application/json'],
+            'json' => $body,
+            'verify' => $this->verifySSL
+        ]);
+
+        $this->response = $response;
+        return json_decode($response->getBody(), true);
+    }
+
+    /**
      *  Send Message
      * @param array $body
      * @return object
      */
-    public function sendMessage($body)
+    public function sendMessage($payload)
     {
-        $data = array_merge($this->payload, [
+        $data = array_merge($this->payload(), [
             "from" => $this->senderId,
             "channel" => $this->channel,
             "type" => $this->messageType,
-            "to" => $body['phone_number'],
-            "sms" => $body['message'],
+            "to" => $payload['phone_number'],
+            "sms" => $payload['message'],
         ]);
 
-        return $this->post('sms/send', $data);
+        return $this->post('sms/send', $data,);
     }
 
     /**
@@ -73,7 +101,7 @@ class Termii
      */
     public function sendToken($body)
     {
-        $data = array_merge($this->payload, [
+        $data = array_merge($this->payload(), [
             "message_type" => $this->tokenMessageType,
             "to" => $body['phone_number'],
             "from" => $this->senderId,
@@ -96,29 +124,12 @@ class Termii
      */
     public function verifyToken($body)
     {
-        $data = array_merge($this->payload, [
+        $data = array_merge($this->payload(), [
             "pin_id" => $body['pin_id'],
             "pin" => $body['pin']
         ]);
 
         return $this->post('sms/otp/verify', $data);
-    }
-
-    /**
-     * Submit post request to Termii
-     * @param string $path
-     * @param array $body
-     * @return object Request response body
-     */
-    protected function post(string $path, array $body)
-    {
-        $response = $this->client()->post('/api/' . $path, [
-            'headers' => ['Content-Type' => 'application/json'],
-            'json' => $body
-        ]);
-
-        $this->response = $response;
-        return json_decode($response->getBody(), true);
     }
 
     /**
@@ -207,6 +218,17 @@ class Termii
     public function setSender(string $sender)
     {
         $this->senderId = $sender;
+        return $this;
+    }
+
+    /**
+     * Set API Key
+     * @param string $key
+     * @return $this
+     */
+    public function setAPIKey(string $key)
+    {
+        $this->apiKey = $key;
         return $this;
     }
 }
