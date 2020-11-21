@@ -29,5 +29,6 @@
             "name": "Douglas Okolaa",
             "email": "okolaadouglas@gmail.com"
         }
-    ]
+    ],
+    "minimum-stability": "stable"
 }
