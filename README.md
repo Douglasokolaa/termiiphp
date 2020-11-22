@@ -37,16 +37,14 @@ Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) an
 
 ```bash
 # Installation
-$ composer require douglasokolaa/termiiphp
+$ composer require okolaa/termiiphp
 ```
 
 ## :hammer: Countribution
 
 ```bash
-# Clone this project
-$ git clone https://github.com/Douglasokolaa/termiiphp
-
-# Access
+# fork and Clone the fork project
+# Access the folder
 $ cd termiiphp
 
 # Install dependencies
