@@ -3,8 +3,8 @@
 namespace Tests;
 
 use Dotenv\Dotenv;
-use PHPUnit\Framework\TestCase;
 use Okolaa\TermiiPHP\Insight;
+use PHPUnit\Framework\TestCase;
 
 class InsightTest extends TestCase
 {
@@ -18,7 +18,7 @@ class InsightTest extends TestCase
     }
 
     /**
-     * check if the Termii has no syntax error 
+     * check if the Termii has no syntax error
      */
     public function testCheckForSyntaxError()
     {
@@ -55,7 +55,6 @@ class InsightTest extends TestCase
 
     public function testSearch()
     {
-
         $termii = new Insight();
         $termii->setAPIKey($_ENV["TERMII_API_KEY"]);
 

@@ -62,12 +62,12 @@ $ ./vendor/phpunit/phpunit/phpunit tests
 
 This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
 
-
 Made with :heart: by <a href="https://github.com/Douglasokolaa" target="_blank">Douglas Okolaa</a>
 
 &#xa0;
 
 ## Todo:
+
 - Update Readme with Usage
 
 <a href="#top">Back to top</a>
