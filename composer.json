@@ -1,39 +1,41 @@
 {
-    "name": "okolaa/termiiphp",
-    "description": "Termii Rest API php library",
-    "type": "library",
-    "keywords": [
-        "sendinblue",
-        "sms",
-        "php",
-        "api"
-    ],
-    "require": {
-        "guzzlehttp/guzzle": "^6.2 || ^7.0",
-        "vlucas/phpdotenv": "^5.2"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.4"
-    },
-    "autoload": {
-        "psr-4": { "Okolaa\\TermiiPHP\\" : "src/" }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Douglas Okolaa",
-            "email": "okolaadouglas@gmail.com"
-        }
-    ],
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        }
-    },
-    "prefer-stable": true
+  "name": "okolaa/termiiphp",
+  "description": "Termii Rest API php library",
+  "type": "library",
+  "keywords": [
+    "sendinblue",
+    "sms",
+    "php",
+    "api"
+  ],
+  "require": {
+    "guzzlehttp/guzzle": "^6.2 || ^7.0",
+    "vlucas/phpdotenv": "^5.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Okolaa\\TermiiPHP\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Douglas Okolaa",
+      "email": "okolaadouglas@gmail.com"
+    }
+  ],
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  },
+  "prefer-stable": true
 }
