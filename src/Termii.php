@@ -102,7 +102,7 @@ class Termii
      */
     protected function getBaseURI()
     {
-        return 'https://termii.com/';
+        return 'https://api.ng.termii.com/';
     }
 
     /**
