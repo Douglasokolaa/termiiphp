@@ -1,4 +1,4 @@
-<h1 align="center">Termii PHP</h1>
+<h1 align="center">Termii PHP SDK</h1>
 
 <p align="center">
   <img alt="Github top language" src="https://img.shields.io/github/languages/top/Douglasokolaa/termiiphp?color=56BEB8">
@@ -31,111 +31,163 @@ PHP Library for [Termii API](http://developer.termii.com/docs/)
 
 ## :white_check_mark: Requirements ##
 
-Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [PHP 7+](https://php.net/) installed.
+1. In order to use Termii's APIs, you need to first create an account for free at [termii.com](https://termii.com/).
+2. BASE URL: Your Termii account has its own base URL, which you should use in all API requests.
+   Your base URL can be found on your dashboard.
 
-## :checkered_flag: Usage ##
+3. [PHP 8.1+](https://php.net/) installed.
+
+## :hammer: Installation ##
 
 ```bash
 # Installation
 $ composer require okolaa/termiiphp
 ```
-#Usage
 
-- Send sms
+## :checkered_flag: Usage ##
+
+### TLDR;
+
+> * Your API Token can be found in your Termii account settings https://app.termii.com/account/api
+
 ```php
-$termii = new Termii('TERMII_SENDER_ID', 'TERMII_API_KEY');
+    
+    use Okolaa\TermiiPHP\Requests\Messaging\GetSenderIdsRequest;use Okolaa\TermiiPHP\Termii;
+    
+    $termii = new Termii('api-token', 'https://termi-base-url');
+    $response = $termii->senderIdApi()->getIds(page: 1);
+    
+    // get result as array
+    $response->json();
+    
+    // Alternatively
+    $request = new GetSenderIdsRequest();
+    $senderIds = $request->createDtoFromResponse($response);
+    // you can now interact with data e.g.
+    $senderIds->currentPage; // int
+    $senderIds->currentPage; // int
+    $senderIds->lastPage; // int
+    $senderIds->total; //int
+    $senderIds->data; //array 
 
-$sent = $termii->sendMessage(
-    [
-        "phone_number" => $_ENV["TEST_PHONE_NUMBER"],
-        "message" => "Unit Test Message"
-    ]
+```
+
+### Switch API
+
+Termii’s Messaging allows you to send messages to any country in the world across SMS and WhatsApp channel through a
+REST API. Every request made is identified by a unique ID that help our users track the status of their message either
+by receiving Delivery Reports (DLRs) over their set webhook endpoints or polling the status of the message using a
+specific endpoint.
+
+#### Messaging
+
+```php
+use Okolaa\TermiiPHP\Data\Message;use Okolaa\TermiiPHP\Termii;
+
+$termii = new Termii('api-token'));
+
+// send Message
+$response = $termii->messagingApi()->send(
+        new Message(
+            to: "23490555546",
+            from: "talert",
+            sms: "Hi There, Testing Termii",
+            type: "plain"
+        )
+    );
+
+// send Bulk message
+$response = $termii->messagingApi()->sendBulk(new Message(...));
+
+// send Device Template
+$response = $termii->messagingApi()->sendDeviceTemplate(new \Okolaa\TermiiPHP\Data\DeviceTemplate(...));
+
+// Sender ID
+$response = $termii->senderIdApi()->getIds($pageNumber);
+$response = $termii->senderIdApi()->requestId(new \Okolaa\TermiiPHP\Data\SenderId(...));
+
+// Campaigns
+$response = $termii->campaignApi()->send(new \Okolaa\TermiiPHP\Data\Campaign(...));
+$response = $termii->campaignApi()->get($campaingId, $pageNumber);
+$response = $termii->campaignApi()->getHistory($pageNumber);
+
+// Phonebook
+$phonebook = new \Okolaa\TermiiPHP\Data\Phonebook(...);
+$response = $termii->campaignApi()->phoneBook()->create($phonebook);
+$response = $termii->campaignApi()->phoneBook()->update($phonebook);
+$response = $termii->campaignApi()->phoneBook()->get();
+$response = $termii->campaignApi()->phoneBook()->delete($phonebook->id);
+
+// Contact
+$contact = new \Okolaa\TermiiPHP\Data\Contact(...);
+$response = $termii->campaignApi()->phoneBook()->addContact($contact);
+$response = $termii->campaignApi()->phoneBook()->importContact($phonebook->id, 234, 'path/to/your/file.csv');
+$response = $termii->campaignApi()->phoneBook()->getContacts($phonebook->id, $pageNumber);
+$response = $termii->campaignApi()->phoneBook()->deleteContact($contact->id);
+
+
+
+```
+
+#### Token
+
+Token allows businesses to generate, send, and verify one-time-passwords.
+
+```php
+
+```
+
+- Customizing Requests
+
+```php
+use Okolaa\TermiiPHP\Requests\Messaging\RequestSenderIdRequest;use Okolaa\TermiiPHP\Termii;
+
+$request = new RequestSenderIdRequest(
+    new \Okolaa\TermiiPHP\Data\SenderId(
+        'okolaa',
+        'Okolaa INC',
+        'To be used for sending alerts to customers.'
+    )
 );
+$request->query()->merge(['page' => 4]);
+$request->headers()->merge(...);
+$request->body()->merge(...);
+$request->config()->merge(...);
+
+$client = new Termii('api-token');
+$response = $client->send($request);
+
 ```
 
-- SendToken
+- The Response Class
 ```php
-$termii = new Termii('TERMII_SENDER_ID', 'TERMII_API_KEY');
+use Okolaa\TermiiPHP\Termii;
+$termii = new Termii('api-token'));
+$response = $termii->send($request);
 
-//Set Options
-$termii->setMaxAttempts(2);
-  ->setPinTimeToLive(5);
-  ->SetPinLength(4);
-  ->setPinType("NUMERIC");
-  ->setMaxAttempts(1);
-
-$sent = $termii->sendToken(
-    [
-        "phone_number" => $_ENV["TEST_PHONE_NUMBER"],
-        "message" => "Your pin is < _pin_ >"
-    ]
-);
+$response->json(); // returns array/scalar value
+$response->collect(); // returns Illuminate/Collection or scalar value
+$response->object(); // returns php object
+$response->dto(); // returns Data objects e.g. PaginationData, SenderId, Message, Phonebook
+$response->headers(); // returns all the response headers
+$response->stream(); // returns the body as a stream
 ```
 
-- verifyToken
-```php
-$termii = new Termii('TERMII_SENDER_ID', 'TERMII_API_KEY');
-$response = $termii->verifyToken(
-    [
-        "pin_id" => "f862cb33-9dd3-42b3-b705-18200c0e800f",
-        "pin" => "1234",
-    ]
-);
-```
+## :hammer: Contribution
 
-- InApp Token
-```php
-$termii = new Termii('TERMII_SENDER_ID', 'TERMII_API_KEY');
-$response = $termii->InAppToken(
-    [
-        "phone_number" => $_ENV["TEST_PHONE_NUMBER"],
-    ]
-);
-```
-
-- Available Methods 
-```php
-$termii = new Termii('TERMII_SENDER_ID', 'TERMII_API_KEY');
-
-$termii->sendMessage();
-$termii->sendToken();
-$termii->verifyToken();
-$termii->InAppToken();
-$termii->sendWithAutoGeneratedNumber();
-$termii->getSenderIds();
-$termii->getResponse();
-$termii->setMaxAttempts();
-$termii->setPinTimeToLive();
-$termii->setPinType();
-$termii->setChannel();
-$termii->SetPinPlaceholder();
-$termii->setMessageType();
-$termii->setTokenMessageType();
-$termii->SetPinLength();
-$termii->setSender();
-$termii->setAPIKey();
-$termii->getSenderIds();
-$termii->getBallance();
-$termii->search();
-```
-
-
-## :hammer: Countribution
-
-```bash
+```shell
 # fork and Clone the fork project
 # Access the folder
-$ cd termiiphp
+cd termiiphp
 
 # Install dependencies
-$ composer Install
+composer Install
 
 # Create .env and update
-$ cp .ev.example .env
+cp .ev.example .env
 
 # Run test
-$ ./vendor/phpunit/phpunit/phpunit tests
-
+./vendor/bin/pest
 ```
 
 ## :memo: License ##
@@ -146,8 +198,5 @@ Made with :heart: by <a href="https://github.com/Douglasokolaa" target="_blank">
 
 &#xa0;
 
-## Todo:
-
-- Update Readme with Usage
 
 <a href="#top">Back to top</a>
