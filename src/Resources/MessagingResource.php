@@ -4,10 +4,10 @@ namespace Okolaa\TermiiPHP\Resources;
 
 use Okolaa\TermiiPHP\Data\DeviceTemplate;
 use Okolaa\TermiiPHP\Data\Message;
-use Okolaa\TermiiPHP\Requests\Messaging\SendBulkMessageRequest;
-use Okolaa\TermiiPHP\Requests\Messaging\SendDeviceTemplateRequest;
-use Okolaa\TermiiPHP\Requests\Messaging\SendMessageFromAutoNumberRequest;
-use Okolaa\TermiiPHP\Requests\Messaging\SendMessageRequest;
+use Okolaa\TermiiPHP\Endpoints\Messaging\SendBulkMessageEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Messaging\SendDeviceTemplateEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Messaging\SendMessageFromAutoNumberEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Messaging\SendMessageEndpoint;
 use Saloon\Exceptions\Request\FatalRequestException;
 use Saloon\Exceptions\Request\RequestException;
 use Saloon\Http\BaseResource;
@@ -24,7 +24,7 @@ class MessagingResource extends BaseResource
      */
     public function send(Message $message): Response
     {
-        return $this->connector->send(new SendMessageRequest($message));
+        return $this->connector->send(new SendMessageEndpoint($message));
     }
 
     /**
@@ -33,7 +33,7 @@ class MessagingResource extends BaseResource
      */
     public function sendBulk(Message $message): Response
     {
-        return $this->connector->send(new SendBulkMessageRequest($message));
+        return $this->connector->send(new SendBulkMessageEndpoint($message));
     }
 
     /**
@@ -42,7 +42,7 @@ class MessagingResource extends BaseResource
      */
     public function SendMessageFromAutoNumber(string $to, string $message): Response
     {
-        return $this->connector->send(new SendMessageFromAutoNumberRequest($to, $message));
+        return $this->connector->send(new SendMessageFromAutoNumberEndpoint($to, $message));
     }
 
     /**
@@ -51,6 +51,6 @@ class MessagingResource extends BaseResource
      */
     public function sendDeviceTemplate(DeviceTemplate $deviceTemplate): Response
     {
-        return $this->connector->send(new SendDeviceTemplateRequest($deviceTemplate));
+        return $this->connector->send(new SendDeviceTemplateEndpoint($deviceTemplate));
     }
 }

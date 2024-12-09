@@ -52,7 +52,8 @@ $ composer require okolaa/termiiphp
 
 ```php
     
-    use Okolaa\TermiiPHP\Requests\Messaging\GetSenderIdsRequest;use Okolaa\TermiiPHP\Termii;
+    use Okolaa\TermiiPHP\Endpoints\Messaging\GetSenderIdsEndpoint;
+    use Okolaa\TermiiPHP\Termii;
     
     $termii = new Termii('api-token', 'https://termi-base-url');
     $response = $termii->senderIdApi()->getIds(page: 1);
@@ -61,7 +62,7 @@ $ composer require okolaa/termiiphp
     $response->json();
     
     // Alternatively
-    $request = new GetSenderIdsRequest();
+    $request = new GetSenderIdsEndpoint();
     $senderIds = $request->createDtoFromResponse($response);
     // you can now interact with data e.g.
     $senderIds->currentPage; // int
@@ -82,7 +83,8 @@ specific endpoint.
 #### Messaging
 
 ```php
-use Okolaa\TermiiPHP\Data\Message;use Okolaa\TermiiPHP\Termii;
+use Okolaa\TermiiPHP\Data\Message;
+use Okolaa\TermiiPHP\Termii;
 
 $termii = new Termii('api-token'));
 
@@ -140,9 +142,10 @@ Token allows businesses to generate, send, and verify one-time-passwords.
 - Customizing Requests
 
 ```php
-use Okolaa\TermiiPHP\Requests\Messaging\RequestSenderIdRequest;use Okolaa\TermiiPHP\Termii;
+use Okolaa\TermiiPHP\Endpoints\Messaging\RequestSenderIdEndpoint;
+use Okolaa\TermiiPHP\Termii;
 
-$request = new RequestSenderIdRequest(
+$request = new RequestSenderIdEndpoint(
     new \Okolaa\TermiiPHP\Data\SenderId(
         'okolaa',
         'Okolaa INC',

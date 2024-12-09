@@ -2,13 +2,13 @@
 
 use Okolaa\TermiiPHP\Data\DeviceTemplate;
 use Okolaa\TermiiPHP\Data\Message;
-use Okolaa\TermiiPHP\Requests\Messaging\SendBulkMessageRequest;
-use Okolaa\TermiiPHP\Requests\Messaging\SendMessageRequest;
+use Okolaa\TermiiPHP\Endpoints\Messaging\SendBulkMessageEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Messaging\SendMessageEndpoint;
 use Saloon\Traits\Body\HasJsonBody;
 use function Pest\Faker\fake;
 
 test('it can send message', closure: function () {
-    expect(SendMessageRequest::class)
+    expect(SendMessageEndpoint::class)
         ->toSendPostRequest()
         ->toUse(HasJsonBody::class)
         ->and(
@@ -25,7 +25,7 @@ test('it can send message', closure: function () {
 });
 
 test('it can send bulk message', closure: function () {
-    expect(SendBulkMessageRequest::class)
+    expect(SendBulkMessageEndpoint::class)
         ->toSendPostRequest()
         ->toUse(HasJsonBody::class)
         ->and(
@@ -42,7 +42,7 @@ test('it can send bulk message', closure: function () {
 });
 
 test('it can get send device template', closure: function () {
-    expect(\Okolaa\TermiiPHP\Requests\Messaging\SendDeviceTemplateRequest::class)
+    expect(\Okolaa\TermiiPHP\Endpoints\Messaging\SendDeviceTemplateEndpoint::class)
         ->toSendPostRequest()
         ->toUse(HasJsonBody::class)
         ->and(
@@ -55,7 +55,7 @@ test('it can get send device template', closure: function () {
 });
 
 test('it can send message with termii number', closure: function () {
-    expect(\Okolaa\TermiiPHP\Requests\Messaging\SendMessageFromAutoNumberRequest::class)
+    expect(\Okolaa\TermiiPHP\Endpoints\Messaging\SendMessageFromAutoNumberEndpoint::class)
         ->toSendPostRequest()
         ->toUse(HasJsonBody::class)
         ->and(
@@ -68,7 +68,7 @@ test('it can send message with termii number', closure: function () {
 });
 
 test('it can get sender ids', closure: function () {
-    expect(\Okolaa\TermiiPHP\Requests\Messaging\GetSenderIdsRequest::class)
+    expect(\Okolaa\TermiiPHP\Endpoints\Messaging\GetSenderIdsEndpoint::class)
         ->toSendGetRequest()
         ->and(
             createTestConnector()
@@ -80,7 +80,7 @@ test('it can get sender ids', closure: function () {
 });
 
 test('it can request sender id', closure: function () {
-    expect(\Okolaa\TermiiPHP\Requests\Messaging\RequestSenderIdRequest::class)
+    expect(\Okolaa\TermiiPHP\Endpoints\Messaging\RequestSenderIdEndpoint::class)
         ->toSendPostRequest()
         ->and(
             $response = createTestConnector()

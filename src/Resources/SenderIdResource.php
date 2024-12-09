@@ -3,8 +3,8 @@
 namespace Okolaa\TermiiPHP\Resources;
 
 use Okolaa\TermiiPHP\Data\SenderId;
-use Okolaa\TermiiPHP\Requests\Messaging\GetSenderIdsRequest;
-use Okolaa\TermiiPHP\Requests\Messaging\RequestSenderIdRequest;
+use Okolaa\TermiiPHP\Endpoints\Messaging\GetSenderIdsEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Messaging\RequestSenderIdEndpoint;
 use Saloon\Exceptions\Request\FatalRequestException;
 use Saloon\Exceptions\Request\RequestException;
 use Saloon\Http\BaseResource;
@@ -21,7 +21,7 @@ class SenderIdResource extends BaseResource
      */
     public function getIds(int $page = 1): Response
     {
-        return $this->connector->send(new GetSenderIdsRequest($page));
+        return $this->connector->send(new GetSenderIdsEndpoint($page));
 
     }
 
@@ -31,6 +31,6 @@ class SenderIdResource extends BaseResource
      */
     public function requestId(SenderId $sender): Response
     {
-        return $this->connector->send(new RequestSenderIdRequest($sender));
+        return $this->connector->send(new RequestSenderIdEndpoint($sender));
     }
 }

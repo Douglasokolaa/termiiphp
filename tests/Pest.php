@@ -68,7 +68,7 @@ function createTestConnector(?MockClient $mockClient = null): Termii
     return $connector;
 }
 
-function createTestRequest(Method $method = Method::GET): Request
+function createTestEndpoint(Method $method = Method::GET): Request
 {
     return new class($method) extends Request implements HasBody {
         use HasJsonBody;
