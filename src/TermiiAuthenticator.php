@@ -7,6 +7,7 @@ use Saloon\Contracts\Body\BodyRepository;
 use Saloon\Contracts\Body\MergeableBody;
 use Saloon\Enums\Method;
 use Saloon\Http\PendingRequest;
+use Saloon\Repositories\Body\MultipartBodyRepository;
 
 class TermiiAuthenticator implements Authenticator
 {
@@ -43,8 +44,19 @@ class TermiiAuthenticator implements Authenticator
      */
     private function mergeApiKeyIntoBody(BodyRepository $body): void
     {
-        if ($body instanceof MergeableBody) {
+        if ($body instanceof MultipartBodyRepository) {
+            $body->add(
+                'contact',
+                json_encode(
+                    json_decode($body->get('contact')->value, true)
+                    + [
+                        'api_key' => $this->apiKey
+                    ]
+                )
+            );
+        } elseif ($body instanceof MergeableBody) {
             $body->merge(['api_key' => $this->apiKey]);
         }
+
     }
 }

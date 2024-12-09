@@ -14,7 +14,7 @@ test('it can send message', closure: function () {
         ->and(
             $response = createTestConnector()
                 ->messagingApi()
-                ->send($message = new Message(fake()->phoneNumber, fake()->company, fake()->sentence()))
+                ->send($message = new Message(fake()->phoneNumber(), fake()->company(), fake()->sentence()))
         )
         ->toBeInstanceOf(\Saloon\Http\Response::class)
         ->and($response->status())->toBe(200)
@@ -31,7 +31,7 @@ test('it can send bulk message', closure: function () {
         ->and(
             $response = createTestConnector()
                 ->messagingApi()
-                ->sendBulk($message = new Message([fake()->phoneNumber], fake()->company, fake()->sentence()))
+                ->sendBulk($message = new Message([fake()->phoneNumber()], fake()->company(), fake()->sentence()))
         )
         ->toBeInstanceOf(\Saloon\Http\Response::class)
         ->and($response->status())->toBe(200)
@@ -41,14 +41,14 @@ test('it can send bulk message', closure: function () {
         ->toHaveKey('sms', $message->sms);
 });
 
-test('it can get send device template', closure: function () {
+test('it can send device template', closure: function () {
     expect(\Okolaa\TermiiPHP\Endpoints\Messaging\SendDeviceTemplateEndpoint::class)
         ->toSendPostRequest()
         ->toUse(HasJsonBody::class)
         ->and(
             createTestConnector()
                 ->messagingApi()
-                ->sendDeviceTemplate(new DeviceTemplate(fake()->phoneNumber, fake()->uuid(), []))
+                ->sendDeviceTemplate(new DeviceTemplate(fake()->phoneNumber(), fake()->uuid(), []))
                 ->status()
         )
         ->toBe(200);
@@ -61,7 +61,7 @@ test('it can send message with termii number', closure: function () {
         ->and(
             createTestConnector()
                 ->messagingApi()
-                ->SendMessageFromAutoNumber(fake()->phoneNumber, fake()->sentence)
+                ->SendMessageFromAutoNumber(fake()->phoneNumber(), fake()->sentence())
                 ->status()
         )
         ->toBe(200);

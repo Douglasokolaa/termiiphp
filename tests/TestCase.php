@@ -2,14 +2,23 @@
 
 namespace Tests;
 
+use Okolaa\TermiiPHP\Endpoints\Campaign\GetCampaignHistoryEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Campaign\GetCampaignsEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Campaign\Phonebook\AddContactEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Campaign\Phonebook\CreatePhonebookEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Campaign\Phonebook\DeleteContactEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Campaign\Phonebook\DeletePhonebookEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Campaign\Phonebook\GetContactsEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Campaign\Phonebook\GetPhonebooksEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Campaign\Phonebook\ImportContactEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Campaign\Phonebook\UpdatePhonebookEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Campaign\SendCampaignEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Messaging\GetSenderIdsEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Messaging\RequestSenderIdEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Messaging\SendBulkMessageEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Messaging\SendDeviceTemplateEndpoint;
-use Okolaa\TermiiPHP\Endpoints\Messaging\SendMessageFromAutoNumberEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Messaging\SendMessageEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Messaging\SendMessageFromAutoNumberEndpoint;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 use Saloon\Http\Faking\MockClient;
 use Saloon\Http\Faking\MockResponse;
@@ -52,6 +61,28 @@ abstract class TestCase extends BaseTestCase
             RequestSenderIdEndpoint::class => MockResponse::make(),
             GetPhonebooksEndpoint::class => MockResponse::fixture('get_phonebooks.json'),
             CreatePhonebookEndpoint::class => MockResponse::make(),
+            UpdatePhonebookEndpoint::class => MockResponse::make(),
+            DeletePhonebookEndpoint::class => MockResponse::make(),
+            GetContactsEndpoint::class => MockResponse::fixture('get_contacts.json'),
+            AddContactEndpoint::class => MockResponse::make([
+                'data' => [
+                    'id' => 3647982,
+                    'phone_number' => '123456789',
+                    'email_address' => 'test@gmail.com',
+                    'first_name' => 'test',
+                    'last_name' => 'contact',
+                    'company' => 'Termii',
+                    'country_code' => '234',
+                    'message' => null,
+                    'create_at' => '2021-10-11 10:15:35',
+                    'updated_at' => '2021-10-11 10:15:35',
+                ]
+            ]),
+            ImportContactEndpoint::class => MockResponse::make(),
+            DeleteContactEndpoint::class => MockResponse::make(),
+            SendCampaignEndpoint::class => MockResponse::make(),
+            GetCampaignsEndpoint::class => MockResponse::fixture('get_campaigns.json'),
+            GetCampaignHistoryEndpoint::class => MockResponse::fixture('get_campaign_history.json'),
         ]);
     }
 }

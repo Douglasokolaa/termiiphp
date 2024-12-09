@@ -2,9 +2,7 @@
 
 namespace Okolaa\TermiiPHP\Data;
 
-use Okolaa\TermiiPHP\Data\Contracts\ConvertsArrayToDTO;
-
-class DeviceTemplate implements ConvertsArrayToDTO
+class DeviceTemplate
 {
     public function __construct(
         public readonly string|array $phoneNumber,
@@ -13,16 +11,6 @@ class DeviceTemplate implements ConvertsArrayToDTO
         public readonly ?string      $deviceId = null,
     )
     {
-    }
-
-    public static function fromArray(array $data): DeviceTemplate
-    {
-        return new self(
-            phoneNumber: $data['phoneNumber'],
-            templateId: $data['templateId'],
-            data: $data['data'],
-            deviceId: $data['deviceId'],
-        );
     }
 
     public function toRequestArray(): array

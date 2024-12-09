@@ -36,9 +36,11 @@ class ImportContactEndpoint extends Request implements HasBody
     protected function defaultBody(): array
     {
         return [
-            'pid' => $this->phonebookId,
-            'country_code' => $this->countryCode,
             new MultipartValue('file', $this->file),
+            new MultipartValue('contact', json_encode([
+                'pid' => $this->phonebookId,
+                'country_code' => $this->countryCode,
+            ])),
         ];
     }
 }

@@ -8,10 +8,10 @@ class Contact implements ConvertsArrayToDTO
 {
     public function __construct(
         public readonly string  $phoneNumber,
-        public readonly string  $email,
-        public readonly string  $firstName,
-        public readonly string  $lastName,
-        public readonly string  $companyName,
+        public readonly ?string $email = null,
+        public readonly ?string $firstName = null,
+        public readonly ?string $lastName = null,
+        public readonly ?string $companyName = null,
         public readonly ?int    $id = null,
         public readonly ?string $countryCode = null,
         public readonly ?string $created = null,
@@ -27,9 +27,9 @@ class Contact implements ConvertsArrayToDTO
             email: $data['email_address'],
             firstName: $data['first_name'],
             lastName: $data['last_name'],
-            companyName: $data['company_name'],
+            companyName: $data['company'],
             id: $data['id'],
-            countryCode: $data['country_code'],
+            countryCode: $data['country_code'] ?? null,
             created: $data['create_at'],
             updated: $data['updated_at']
         );

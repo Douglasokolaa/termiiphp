@@ -10,7 +10,7 @@ class Campaign implements Contracts\ConvertsArrayToDTO
     public function __construct(
         public readonly string         $phonebookId,
         public readonly string         $senderId,
-        public readonly MessageChannel $channel,
+        public readonly ?MessageChannel $channel,
         public readonly string         $campaignType,
         public readonly ?string        $runAt = null,
         public readonly ?string        $status = null,

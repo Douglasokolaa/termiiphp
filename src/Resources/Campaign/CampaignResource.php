@@ -28,7 +28,7 @@ class CampaignResource extends BaseResource
         return $this->connector->send(new GetCampaignsEndpoint($page));
     }
 
-    public function getHistory(string $campaignId, int $page = 1): Response
+    public function getHistory(string|int $campaignId, int $page = 1): Response
     {
         return $this->connector->send(new GetCampaignHistoryEndpoint($campaignId, $page));
     }

@@ -28,7 +28,7 @@ class GetCampaignsEndpoint extends Request
 
     public function resolveEndpoint(): string
     {
-        return '/api/phonebooks';
+        return '/api/sms/campaigns';
     }
 
     /**
