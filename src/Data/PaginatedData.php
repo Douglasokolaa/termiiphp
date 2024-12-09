@@ -2,16 +2,15 @@
 
 namespace Okolaa\TermiiPHP\Data;
 
-use Okolaa\TermiiPHP\Data\Contracts\ConvertsArrayToDTO;
 use Saloon\Http\Response;
 
 /**
- * @template D of ConvertsArrayToDTO
+ * @template D
  */
 class PaginatedData
 {
     /**
-     * @param array<D> $data
+     * @param array<int, D> $data
      * @param int $currentPage
      * @param int $lastPage
      * @param int $total
@@ -32,13 +31,13 @@ class PaginatedData
     }
 
     /**
-     * @param Response $response
      * @param class-string<D> $dtoClass
-     * @return PaginatedData<D>
+     * @return self<D>
      */
     public static function fromResponse(Response $response, string $dtoClass): PaginatedData
     {
         $pagination = $response->json();
+        /** @var array<int, D> $data */
         $data = array_map(
             fn(array $item) => $dtoClass::fromArray($item),
             $pagination['data']

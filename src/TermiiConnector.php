@@ -17,8 +17,6 @@ class TermiiConnector extends Connector
     use AcceptsJson;
     use AlwaysThrowOnErrors;
 
-    private static ?self $instance = null;
-
     protected int $connectTimeout = 30;
 
     protected int $requestTimeout = 60;

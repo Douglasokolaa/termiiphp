@@ -2,8 +2,6 @@
 
 namespace Okolaa\TermiiPHP\Data;
 
-use Okolaa\TermiiPHP\Data\Contracts\ConvertsArrayToDTO;
-
 class CampaignHistory implements Contracts\ConvertsArrayToDTO
 {
 
@@ -24,7 +22,7 @@ class CampaignHistory implements Contracts\ConvertsArrayToDTO
     {
     }
 
-    public static function fromArray(array $data): ConvertsArrayToDTO
+    public static function fromArray(array $data): CampaignHistory
     {
         return new self(
             id: $data['id'],

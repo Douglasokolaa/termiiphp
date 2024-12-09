@@ -28,7 +28,7 @@ class GetCampaignHistoryEndpoint extends Request
 
     public function resolveEndpoint(): string
     {
-        return '/api/phonebooks';
+        return "/api/sms/campaigns/$this->campaignId";
     }
 
     /**

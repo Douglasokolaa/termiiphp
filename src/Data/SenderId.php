@@ -18,7 +18,6 @@ class SenderId implements ConvertsArrayToDTO
 
     public static function fromArray(array $data): SenderId
     {
-        var_dump($data);
         return new self(
             id: $data['sender_id'],
             company: $data['company'],

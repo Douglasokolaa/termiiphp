@@ -2,7 +2,6 @@
 
 namespace Okolaa\TermiiPHP\Data;
 
-use Okolaa\TermiiPHP\Data\Contracts\ConvertsArrayToDTO;
 use Okolaa\TermiiPHP\Enums\MessageChannel;
 
 class Campaign implements Contracts\ConvertsArrayToDTO
@@ -27,7 +26,7 @@ class Campaign implements Contracts\ConvertsArrayToDTO
     {
     }
 
-    public static function fromArray(array $data): ConvertsArrayToDTO
+    public static function fromArray(array $data): Campaign
     {
         return new self(
             phonebookId: $data['phone_book'],

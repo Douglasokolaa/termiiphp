@@ -3,6 +3,7 @@
 namespace Okolaa\TermiiPHP;
 
 use Saloon\Contracts\Authenticator;
+use Saloon\Contracts\Body\BodyRepository;
 use Saloon\Contracts\Body\MergeableBody;
 use Saloon\Enums\Method;
 use Saloon\Http\PendingRequest;
@@ -40,7 +41,7 @@ class TermiiAuthenticator implements Authenticator
     /**
      * Merge the API key into the request body if the body is mergeable.
      */
-    private function mergeApiKeyIntoBody($body): void
+    private function mergeApiKeyIntoBody(BodyRepository $body): void
     {
         if ($body instanceof MergeableBody) {
             $body->merge(['api_key' => $this->apiKey]);
