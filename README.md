@@ -27,21 +27,24 @@
 
 ## :dart: About ##
 
-PHP Library for [Termii API](http://developer.termii.com/docs/)
+Termii PHP SDK is a robust library designed to facilitate seamless integration with
+the [Termii API](http://developer.termii.com/docs/).
+It enables developers to efficiently send SMS messages, manage sender IDs,
+handle campaigns, and verify tokens within PHP applications.
 
 ## :white_check_mark: Requirements ##
 
-1. In order to use Termii's APIs, you need to first create an account for free at [termii.com](https://termii.com/).
+1. To use Termii's APIs, you need to first create an account for free at [termii.com](https://termii.com/).
 2. BASE URL: Your Termii account has its own base URL, which you should use in all API requests.
    Your base URL can be found on your dashboard.
 
-3. [PHP 8.1+](https://php.net/) installed.
+3. Ensure that PHP 8.1 [PHP 8.1+](https://php.net/) or higher is installed on your system.
 
 ## :hammer: Installation ##
 
 ```bash
 # Installation
-$ composer require okolaa/termiiphp
+composer require okolaa/termiiphp
 ```
 
 ## :checkered_flag: Usage ##
@@ -55,13 +58,16 @@ $ composer require okolaa/termiiphp
     use Okolaa\TermiiPHP\Endpoints\Messaging\GetSenderIdsEndpoint;
     use Okolaa\TermiiPHP\Termii;
     
+    // Initialize the SDK
     $termii = Termii::initialize('api-token', 'https://termi-base-url');
+    
+    // make a request
     $response = $termii->senderIdApi()->getIds(page: 1);
     
     // get result as array
     $response->json();
     
-    // Alternatively
+    // Alternatively, convert result to DTO
     $request = new GetSenderIdsEndpoint();
     $senderIds = $request->createDtoFromResponse($response);
     // you can now interact with data e.g.
@@ -139,6 +145,8 @@ Token allows businesses to generate, send, and verify one-time-passwords.
 
 ```
 
+## Advanced Configuration
+
 - Customizing Requests
 
 ```php
@@ -177,6 +185,20 @@ $response->headers(); // returns all the response headers
 $response->stream(); // returns the body as a stream
 ```
 
+-- Handling Timeouts
+The SDK allows you to configure timeouts for HTTP requests:
+
+```php
+   use Okolaa\TermiiPHP\Termii;
+   $termii = Termii::initialize('api-token'));
+   $termii->config()->merge(
+    [
+        'connect_timeout' => 60,
+        'timeout' => 120
+    ]
+   );
+```
+
 ## :hammer: Contribution
 
 ```shell
@@ -186,9 +208,6 @@ cd termiiphp
 
 # Install dependencies
 composer Install
-
-# Create .env and update
-cp .ev.example .env
 
 # Run test
 ./vendor/bin/pest
