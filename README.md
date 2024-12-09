@@ -55,7 +55,7 @@ $ composer require okolaa/termiiphp
     use Okolaa\TermiiPHP\Endpoints\Messaging\GetSenderIdsEndpoint;
     use Okolaa\TermiiPHP\Termii;
     
-    $termii = new Termii('api-token', 'https://termi-base-url');
+    $termii = Termii::initialize('api-token', 'https://termi-base-url');
     $response = $termii->senderIdApi()->getIds(page: 1);
     
     // get result as array
@@ -86,7 +86,7 @@ specific endpoint.
 use Okolaa\TermiiPHP\Data\Message;
 use Okolaa\TermiiPHP\Termii;
 
-$termii = new Termii('api-token'));
+$termii = Termii::initialize('api-token'));
 
 // send Message
 $response = $termii->messagingApi()->send(
@@ -157,15 +157,16 @@ $request->headers()->merge(...);
 $request->body()->merge(...);
 $request->config()->merge(...);
 
-$client = new Termii('api-token');
+$client = Termii::initialize('api-token');
 $response = $client->send($request);
 
 ```
 
 - The Response Class
+
 ```php
 use Okolaa\TermiiPHP\Termii;
-$termii = new Termii('api-token'));
+$termii = Termii::initialize('api-token'));
 $response = $termii->send($request);
 
 $response->json(); // returns array/scalar value

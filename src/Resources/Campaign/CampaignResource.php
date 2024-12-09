@@ -11,9 +11,11 @@ use Saloon\Http\Response;
 
 class CampaignResource extends BaseResource
 {
+    private PhonebookResource $phonebookResource;
+
     public function phoneBook(): PhonebookResource
     {
-        return new PhonebookResource($this->connector);
+        return $this->phonebookResource ??= new PhonebookResource($this->connector);
     }
 
     public function send(Campaign $campaign): Response

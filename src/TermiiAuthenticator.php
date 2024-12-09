@@ -5,7 +5,6 @@ namespace Okolaa\TermiiPHP;
 use Saloon\Contracts\Authenticator;
 use Saloon\Contracts\Body\MergeableBody;
 use Saloon\Enums\Method;
-use Saloon\Http\Auth\NullAuthenticator;
 use Saloon\Http\PendingRequest;
 
 class TermiiAuthenticator implements Authenticator

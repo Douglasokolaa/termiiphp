@@ -55,10 +55,10 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function createTestConnector(?MockClient $mockClient = null): Termii
+function createTestConnector(?MockClient $mockClient = null): \Okolaa\TermiiPHP\TermiiConnector
 {
 
-    $connector = new Termii('api-key');
+    $connector = Termii::initialize('api-key');
     $connector->getAuthenticator();
 
     if ($mockClient !== null) {
