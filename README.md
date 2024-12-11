@@ -85,56 +85,110 @@ Termii’s Messaging allows you to send messages to any country in the world acr
 REST API. Every request made is identified by a unique ID that help our users track the status of their message either
 by receiving Delivery Reports (DLRs) over their set webhook endpoints or polling the status of the message using a
 specific endpoint.
-
 #### Messaging
+
+### Send Message
 
 ```php
 use Okolaa\TermiiPHP\Data\Message;
 use Okolaa\TermiiPHP\Termii;
 
-$termii = Termii::initialize('api-token'));
+$termii = Termii::initialize('api-token');
+$message = new Message(
+    to: "23490555546",
+    from: "talert",
+    sms: "Hi There, Testing Termii",
+    type: "plain",
+    channel:\Okolaa\TermiiPHP\Enums\MessageChannel::DND,
+    media: null,    
+    time_to_live: 0 
+);
+$response = $termii->messagingApi()->send($message);
+```
 
-// send Message
-$response = $termii->messagingApi()->send(
-        new Message(
-            to: "23490555546",
-            from: "talert",
-            sms: "Hi There, Testing Termii",
-            type: "plain"
-        )
-    );
+### Send Bulk Message
 
-// send Bulk message
-$response = $termii->messagingApi()->sendBulk(new Message(...));
+```php
+$bulkMessage = new Message(
+    to: ["2347012345678", "2349067890123"],
+    from: "bulkAlert",
+    sms: "Bulk message content, Testing Termii",
+    type: "plain",
+    channel: \Okolaa\TermiiPHP\Enums\MessageChannel::DND, 
+    media: null,    
+    time_to_live: 1 // Example TTL in minutes
+);
+$response = $termii->messagingApi()->sendBulk($bulkMessage);
+```
 
-// send Device Template
-$response = $termii->messagingApi()->sendDeviceTemplate(new \Okolaa\TermiiPHP\Data\DeviceTemplate(...));
+### Send Device Template
 
-// Sender ID
+```php
+$deviceTemplate = new \Okolaa\TermiiPHP\Data\DeviceTemplate(
+    template_id: "sampleTemplate1234",
+    phone_number: "2348076543210",
+    device_key: "ABCD1234DEVICEKEY"
+);
+$response = $termii->messagingApi()->sendDeviceTemplate($deviceTemplate);
+```
+
+### Sender ID
+
+```php
 $response = $termii->senderIdApi()->getIds($pageNumber);
-$response = $termii->senderIdApi()->requestId(new \Okolaa\TermiiPHP\Data\SenderId(...));
+$senderId = new \Okolaa\TermiiPHP\Data\SenderId(...);
+$senderId = new \Okolaa\TermiiPHP\Data\SenderId(
+    name: "TestSender",
+    company: "TestCompany Ltd",
+    purpose: "Testing purposes for SDK"
+);
+```
 
-// Campaigns
-$response = $termii->campaignApi()->send(new \Okolaa\TermiiPHP\Data\Campaign(...));
+### Campaigns
+
+```php
+$campaign = new \Okolaa\TermiiPHP\Data\Campaign(
+    name: "Test Campaign",
+    message: "This is a test campaign message",
+    sender_id: "TestSenderId",
+    recipients: ["2347012345678", "2349067890123"],
+    channel: "sms", 
+    time_to_send: "2023-12-01 10:00:00"
+);
+$response = $termii->campaignApi()->send($campaign);
 $response = $termii->campaignApi()->get($campaingId, $pageNumber);
 $response = $termii->campaignApi()->getHistory($pageNumber);
+```
 
-// Phonebook
-$phonebook = new \Okolaa\TermiiPHP\Data\Phonebook(...);
-$response = $termii->campaignApi()->phoneBook()->create($phonebook);
-$response = $termii->campaignApi()->phoneBook()->update($phonebook);
+### Phonebook
+
+```php
+$phonebook = new \Okolaa\TermiiPHP\Data\Phonebook(
+    name: "Test Phonebook",
+    description: "Sample description for test phonebook"
+);
+$responseCreate = $termii->campaignApi()->phoneBook()->create($phonebook);
+$responseUpdate = $termii->campaignApi()->phoneBook()->update($phonebook);
 $response = $termii->campaignApi()->phoneBook()->get();
 $response = $termii->campaignApi()->phoneBook()->delete($phonebook->id);
+```
 
-// Contact
-$contact = new \Okolaa\TermiiPHP\Data\Contact(...);
-$response = $termii->campaignApi()->phoneBook()->addContact($contact);
-$response = $termii->campaignApi()->phoneBook()->importContact($phonebook->id, 234, 'path/to/your/file.csv');
-$response = $termii->campaignApi()->phoneBook()->getContacts($phonebook->id, $pageNumber);
-$response = $termii->campaignApi()->phoneBook()->deleteContact($contact->id);
+### Contact
 
+```php
+$contact = new \Okolaa\TermiiPHP\Data\Contact(
+    phone_number: "2347012345678",
+    first_name: "John",
+    last_name: "Doe",
+    email: "johndoe@example.com",
+    phonebook_id: "testPhonebook123"
+);
+$responseAddContact = $termii->campaignApi()->phoneBook()->addContact($contact);
+$importedContactsResponse = $termii->campaignApi()->phoneBook()->importContact($phonebook->id, 234, 'path/to/your/file.csv');
 
-
+$fetchedContactsResponse = $termii->campaignApi()->phoneBook()->getContacts($phonebook->id, $pageNumber);
+$deleteContactResponse = $termii->campaignApi()->phoneBook()->deleteContact($contact->id);
+```
 ```
 
 #### Token
@@ -153,13 +207,12 @@ Token allows businesses to generate, send, and verify one-time-passwords.
 use Okolaa\TermiiPHP\Endpoints\Messaging\RequestSenderIdEndpoint;
 use Okolaa\TermiiPHP\Termii;
 
-$request = new RequestSenderIdEndpoint(
-    new \Okolaa\TermiiPHP\Data\SenderId(
-        'okolaa',
-        'Okolaa INC',
-        'To be used for sending alerts to customers.'
-    )
+$senderIdData = new \Okolaa\TermiiPHP\Data\SenderId(
+    'okolaa',
+    'Okolaa INC',
+    'To be used for sending alerts to customers.'
 );
+$request = new RequestSenderIdEndpoint($senderIdData);
 $request->query()->merge(['page' => 4]);
 $request->headers()->merge(...);
 $request->body()->merge(...);
@@ -174,7 +227,7 @@ $response = $client->send($request);
 
 ```php
 use Okolaa\TermiiPHP\Termii;
-$termii = Termii::initialize('api-token'));
+$termii = Termii::initialize('api-token');
 $response = $termii->send($request);
 
 $response->json(); // returns array/scalar value
