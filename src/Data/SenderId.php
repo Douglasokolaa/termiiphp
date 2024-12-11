@@ -3,8 +3,9 @@
 namespace Okolaa\TermiiPHP\Data;
 
 use Okolaa\TermiiPHP\Data\Contracts\ConvertsArrayToDTO;
+use Okolaa\TermiiPHP\Data\Contracts\ConvertsDtoToRequestArray;
 
-class SenderId implements ConvertsArrayToDTO
+class SenderId implements ConvertsArrayToDTO, ConvertsDtoToRequestArray
 {
     public function __construct(
         public readonly string  $id,

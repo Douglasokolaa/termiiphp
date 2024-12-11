@@ -4,7 +4,6 @@ namespace Okolaa\TermiiPHP\Data;
 
 class CampaignHistory implements Contracts\ConvertsArrayToDTO
 {
-
     public function __construct(
         public readonly string $id,
         public readonly string $senderId,

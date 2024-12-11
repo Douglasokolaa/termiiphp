@@ -2,7 +2,9 @@
 
 namespace Okolaa\TermiiPHP\Data;
 
-class DeviceTemplate
+use Okolaa\TermiiPHP\Data\Contracts\ConvertsDtoToRequestArray;
+
+class DeviceTemplate implements ConvertsDtoToRequestArray
 {
     public function __construct(
         public readonly string|array $phoneNumber,

@@ -3,8 +3,9 @@
 namespace Okolaa\TermiiPHP\Data;
 
 use Okolaa\TermiiPHP\Data\Contracts\ConvertsArrayToDTO;
+use Okolaa\TermiiPHP\Data\Contracts\ConvertsDtoToRequestArray;
 
-class Contact implements ConvertsArrayToDTO
+class Contact implements ConvertsArrayToDTO, ConvertsDtoToRequestArray
 {
     public function __construct(
         public readonly string  $phoneNumber,

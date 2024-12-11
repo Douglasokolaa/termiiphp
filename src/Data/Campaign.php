@@ -2,9 +2,10 @@
 
 namespace Okolaa\TermiiPHP\Data;
 
+use Okolaa\TermiiPHP\Data\Contracts\ConvertsDtoToRequestArray;
 use Okolaa\TermiiPHP\Enums\MessageChannel;
 
-class Campaign implements Contracts\ConvertsArrayToDTO
+class Campaign implements Contracts\ConvertsArrayToDTO, ConvertsDtoToRequestArray
 {
 
     public function __construct(
