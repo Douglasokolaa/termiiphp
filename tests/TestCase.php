@@ -19,6 +19,12 @@ use Okolaa\TermiiPHP\Endpoints\Messaging\SendBulkMessageEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Messaging\SendDeviceTemplateEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Messaging\SendMessageEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Messaging\SendMessageFromAutoNumberEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Token\EmailTokenEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Token\InAppTokenEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Token\SendTokenEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Token\VerifyTokenEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Token\VoiceCallEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Token\VoiceTokenEndpoint;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 use Saloon\Http\Faking\MockClient;
 use Saloon\Http\Faking\MockResponse;
@@ -83,6 +89,12 @@ abstract class TestCase extends BaseTestCase
             SendCampaignEndpoint::class => MockResponse::make(),
             GetCampaignsEndpoint::class => MockResponse::fixture('get_campaigns.json'),
             GetCampaignHistoryEndpoint::class => MockResponse::fixture('get_campaign_history.json'),
+            SendTokenEndpoint::class => MockResponse::make(),
+            VoiceTokenEndpoint::class => MockResponse::make(),
+            VerifyTokenEndpoint::class => MockResponse::make(),
+            EmailTokenEndpoint::class => MockResponse::make(),
+            InAppTokenEndpoint::class => MockResponse::fixture('in_app_token.json'),
+            VoiceCallEndpoint::class => MockResponse::make(),
         ]);
     }
 }
