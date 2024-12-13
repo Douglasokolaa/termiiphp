@@ -1,0 +1,7 @@
+# Ensure all text files use LF line endings
+* text eol=lf
+
+# Specific file types
+*.php text eol=lf
+*.json text eol=lf
+*.md text eol=lf

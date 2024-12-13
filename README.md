@@ -333,19 +333,48 @@ $response->headers(); // returns all the response headers
 $response->stream(); // returns the body as a stream
 ```
 
--- Handling Timeouts
-The SDK allows you to configure timeouts for HTTP requests:
-
+## Troubleshooting
+The simplest way to debug a request and response is to use the debug()
+method on your connector before sending a request.
+This will output an easy-to-understand array of the request and the response.
 ```php
-   use Okolaa\TermiiPHP\Termii;
-   $termii = Termii::initialize('api-token'));
-   $termii->config()->merge(
-    [
-        'connect_timeout' => 60,
-        'timeout' => 120
-    ]
-   );
+    use Okolaa\TermiiPHP\Termii;
+    $termii = Termii::initialize('api-token'));
+    // You can provide the die argument if you would like to terminate the application after receiving the response.
+    $termii->debug(die: false);
 ```
+You may also use debugRequest and debugResponse independently
+if you would like to debug just the request or response respectively.
+   ```php
+      $termii->debugRequest(); // $connector->debugRequest(die: true);
+      $termii->debugResponse(); // $connector->debugResponse(die: true);
+   ```
+
+### Common Issues
+1. Invalid API Key:
+   Ensure you’ve set a valid API key. You can validate this by logging into the Termii Dashboard.
+   
+2. SSL Certificate Issues:
+    If you encounter SSL errors in local environments, ensure your system’s CA certificates are up to date.
+    Alternatively, you can disable the SSL certificate verification as shown below:
+    ```php
+        $termii->config()
+            ->merge([
+               'verify' => false
+            ]);
+    ```
+3. Timeouts:
+   Increase the timeout values if the Termii API is slow to respond:
+   ```php
+      use Okolaa\TermiiPHP\Termii;
+      $termii = Termii::initialize('api-token'));
+      $termii->config()->merge(
+       [
+           'connect_timeout' => 60,
+           'timeout' => 120
+       ]
+      );
+   ```
 
 ## :hammer: Contribution
 
