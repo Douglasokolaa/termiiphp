@@ -8,9 +8,11 @@ use Okolaa\TermiiPHP\Resources\MessagingResource;
 use Okolaa\TermiiPHP\Resources\SenderIdResource;
 use Okolaa\TermiiPHP\Resources\TokenResource;
 use Saloon\Http\Connector;
+use Saloon\Http\Response;
 use Saloon\Traits\Plugins\AcceptsJson;
 use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
 use Saloon\Traits\Plugins\HasTimeout;
+use Throwable;
 
 class TermiiConnector extends Connector
 {
@@ -85,5 +87,10 @@ class TermiiConnector extends Connector
         return [
             'verify' => true,
         ];
+    }
+
+    public function getRequestException(Response $response, ?Throwable $senderException): ?Throwable
+    {
+        return new RequestException($response, previous: $senderException);
     }
 }

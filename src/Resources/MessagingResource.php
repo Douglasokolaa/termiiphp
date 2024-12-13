@@ -8,8 +8,7 @@ use Okolaa\TermiiPHP\Endpoints\Messaging\SendBulkMessageEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Messaging\SendDeviceTemplateEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Messaging\SendMessageEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Messaging\SendMessageFromAutoNumberEndpoint;
-use Saloon\Exceptions\Request\FatalRequestException;
-use Saloon\Exceptions\Request\RequestException;
+use Okolaa\TermiiPHP\RequestException;
 use Saloon\Http\BaseResource;
 use Saloon\Http\Response;
 
@@ -19,7 +18,7 @@ use Saloon\Http\Response;
 class MessagingResource extends BaseResource
 {
     /**
-     * @throws FatalRequestException
+
      * @throws RequestException
      */
     public function send(Message $message): Response
@@ -28,7 +27,7 @@ class MessagingResource extends BaseResource
     }
 
     /**
-     * @throws FatalRequestException
+
      * @throws RequestException
      */
     public function sendBulk(Message $message): Response
@@ -37,7 +36,7 @@ class MessagingResource extends BaseResource
     }
 
     /**
-     * @throws FatalRequestException
+
      * @throws RequestException
      */
     public function SendMessageFromAutoNumber(string $to, string $message): Response
@@ -46,7 +45,7 @@ class MessagingResource extends BaseResource
     }
 
     /**
-     * @throws FatalRequestException
+
      * @throws RequestException
      */
     public function sendDeviceTemplate(DeviceTemplate $deviceTemplate): Response
