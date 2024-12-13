@@ -11,17 +11,16 @@ class DeviceTemplate implements ConvertsDtoToRequestArray
         public readonly string       $templateId,
         public readonly array        $data,
         public readonly ?string      $deviceId = null,
-    )
-    {
+    ) {
     }
 
     public function toRequestArray(): array
     {
         return [
             'phone_number' => $this->phoneNumber,
-            'template_id' => $this->templateId,
-            'device_id' => $this->deviceId,
-            'data' => $this->data,
+            'template_id'  => $this->templateId,
+            'device_id'    => $this->deviceId,
+            'data'         => $this->data,
         ];
     }
 }

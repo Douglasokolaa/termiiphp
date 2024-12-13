@@ -22,7 +22,6 @@ class SenderIdResource extends BaseResource
     public function getIds(int $page = 1): Response
     {
         return $this->connector->send(new GetSenderIdsEndpoint($page));
-
     }
 
     /**

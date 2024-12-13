@@ -54,13 +54,12 @@ class PhonebookResource extends BaseResource
     }
 
     /**
-     * @param string $phonebookId
-     * @param string $countryCode
+     * @param string                              $phonebookId
+     * @param string                              $countryCode
      * @param StreamInterface|resource|string|int $file
      */
     public function importContact(string $phonebookId, string $countryCode, $file): Response
     {
         return $this->connector->send(new ImportContactEndpoint($phonebookId, $countryCode, $file));
     }
-
 }

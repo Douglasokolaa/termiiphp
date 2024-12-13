@@ -21,8 +21,7 @@ class EmailTokenEndpoint extends Request implements HasBody
         private readonly string $emailAddress,
         private readonly string $code,
         private readonly string $emailConfigurationId,
-    )
-    {
+    ) {
     }
 
     public function resolveEndpoint(): string
@@ -33,8 +32,8 @@ class EmailTokenEndpoint extends Request implements HasBody
     protected function defaultBody(): array
     {
         return [
-            'email_address' => $this->emailAddress,
-            'code' => $this->code,
+            'email_address'          => $this->emailAddress,
+            'code'                   => $this->code,
             'email_configuration_id' => $this->emailConfigurationId,
         ];
     }

@@ -32,7 +32,7 @@ class GetCampaignHistoryEndpoint extends Request
     }
 
     /**
-     * @param Response $response
+     * @param  Response                       $response
      * @return PaginatedData<CampaignHistory>
      */
     public function createDtoFromResponse(Response $response): PaginatedData

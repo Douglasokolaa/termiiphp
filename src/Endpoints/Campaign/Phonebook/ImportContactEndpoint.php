@@ -16,16 +16,15 @@ class ImportContactEndpoint extends Request implements HasBody
     protected Method $method = Method::POST;
 
     /**
-     * @param string $phonebookId
-     * @param string $countryCode
+     * @param string                              $phonebookId
+     * @param string                              $countryCode
      * @param StreamInterface|string|resource|int $file
      */
     public function __construct(
         private readonly string $phonebookId,
         private readonly string $countryCode,
         private readonly mixed  $file
-    )
-    {
+    ) {
     }
 
     public function resolveEndpoint(): string
@@ -38,7 +37,7 @@ class ImportContactEndpoint extends Request implements HasBody
         return [
             new MultipartValue('file', $this->file),
             new MultipartValue('contact', json_encode([
-                'pid' => $this->phonebookId,
+                'pid'          => $this->phonebookId,
                 'country_code' => $this->countryCode,
             ])),
         ];

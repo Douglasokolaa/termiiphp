@@ -16,7 +16,8 @@
     "pestphp/pest": "^3.5",
     "pestphp/pest-plugin-faker": "^3.0",
     "jonpurvis/lawman": "^3.1",
-    "phpstan/phpstan": "^2.0"
+    "phpstan/phpstan": "^2.0",
+    "friendsofphp/php-cs-fixer": "^3.65"
   },
   "autoload": {
     "psr-4": {

@@ -14,8 +14,7 @@ class Phonebook implements ConvertsArrayToDTO, ConvertsDtoToRequestArray
         public readonly ?string $id = null,
         public readonly ?string $created = null,
         public readonly ?string $updated = null,
-    )
-    {
+    ) {
     }
 
     public static function fromArray(array $data): Phonebook
@@ -34,7 +33,7 @@ class Phonebook implements ConvertsArrayToDTO, ConvertsDtoToRequestArray
     {
         return [
             'phonebook_name' => $this->name,
-            'description' => $this->description,
+            'description'    => $this->description,
         ];
     }
 }

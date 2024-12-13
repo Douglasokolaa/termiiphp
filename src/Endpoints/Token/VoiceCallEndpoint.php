@@ -20,8 +20,7 @@ class VoiceCallEndpoint extends Request implements HasBody
     public function __construct(
         private readonly string $phoneNumber,
         private readonly string $code
-    )
-    {
+    ) {
     }
 
     public function resolveEndpoint(): string
@@ -33,7 +32,7 @@ class VoiceCallEndpoint extends Request implements HasBody
     {
         return [
             'phone_number' => $this->phoneNumber,
-            'code' => $this->code,
+            'code'         => $this->code,
         ];
     }
 }

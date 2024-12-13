@@ -11,7 +11,6 @@ use Saloon\Repositories\Body\MultipartBodyRepository;
 
 class TermiiAuthenticator implements Authenticator
 {
-
     public function __construct(protected readonly string $apiKey)
     {
     }
@@ -57,6 +56,5 @@ class TermiiAuthenticator implements Authenticator
         } elseif ($body instanceof MergeableBody) {
             $body->merge(['api_key' => $this->apiKey]);
         }
-
     }
 }

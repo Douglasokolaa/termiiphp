@@ -20,8 +20,7 @@ class VerifyTokenEndpoint extends Request implements HasBody
     public function __construct(
         private readonly string $pinId,
         private readonly string $pin,
-    )
-    {
+    ) {
     }
 
     public function resolveEndpoint(): string
@@ -33,7 +32,7 @@ class VerifyTokenEndpoint extends Request implements HasBody
     {
         return [
             'pin_id' => $this->pinId,
-            'pin' => $this->pin,
+            'pin'    => $this->pin,
         ];
     }
 }

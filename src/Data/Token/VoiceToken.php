@@ -11,17 +11,16 @@ class VoiceToken implements ConvertsDtoToRequestArray
         public readonly int    $pinAttempts = 3,
         public readonly int    $pinTimeToLiveMinute = 1,
         public readonly int    $pinLength = 6,
-    )
-    {
+    ) {
     }
 
     public function toRequestArray(): array
     {
         return [
-            'phone_number' => $this->phoneNumber,
-            'pin_attempts' => $this->pinAttempts,
+            'phone_number'     => $this->phoneNumber,
+            'pin_attempts'     => $this->pinAttempts,
             'pin_time_to_live' => $this->pinTimeToLiveMinute,
-            'pin_length' => $this->pinLength,
+            'pin_length'       => $this->pinLength,
         ];
     }
 }

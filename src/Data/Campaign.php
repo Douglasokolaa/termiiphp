@@ -7,7 +7,6 @@ use Okolaa\TermiiPHP\Enums\MessageChannel;
 
 class Campaign implements Contracts\ConvertsArrayToDTO, ConvertsDtoToRequestArray
 {
-
     public function __construct(
         public readonly string         $phonebookId,
         public readonly string         $senderId,
@@ -23,8 +22,7 @@ class Campaign implements Contracts\ConvertsArrayToDTO, ConvertsDtoToRequestArra
         public readonly ?string        $delimiter = null,
         public readonly ?string        $removeDuplicate = 'yes',
         public readonly ?string        $createdAt = null,
-    )
-    {
+    ) {
     }
 
     public static function fromArray(array $data): Campaign
@@ -45,16 +43,16 @@ class Campaign implements Contracts\ConvertsArrayToDTO, ConvertsDtoToRequestArra
     public function toRequestArray(): array
     {
         return [
-            'country_code' => $this->countryCode,
-            'sender_id' => $this->senderId,
-            'message' => $this->message,
-            'channel' => $this->channel->value,
-            'message_type' => $this->messageType,
-            'phonebook_id' => $this->phonebookId,
-            'delimiter' => $this->delimiter,
-            'remove_duplicate' => $this->removeDuplicate,
-            'campaign_type' => $this->campaignType,
-            'schedule_time' => $this->runAt,
+            'country_code'        => $this->countryCode,
+            'sender_id'           => $this->senderId,
+            'message'             => $this->message,
+            'channel'             => $this->channel->value,
+            'message_type'        => $this->messageType,
+            'phonebook_id'        => $this->phonebookId,
+            'delimiter'           => $this->delimiter,
+            'remove_duplicate'    => $this->removeDuplicate,
+            'campaign_type'       => $this->campaignType,
+            'schedule_time'       => $this->runAt,
             'schedule_sms_status' => $this->status,
         ];
     }

@@ -17,8 +17,7 @@ class Contact implements ConvertsArrayToDTO, ConvertsDtoToRequestArray
         public readonly ?string $countryCode = null,
         public readonly ?string $created = null,
         public readonly ?string $updated = null,
-    )
-    {
+    ) {
     }
 
     public static function fromArray(array $data): Contact
@@ -40,11 +39,11 @@ class Contact implements ConvertsArrayToDTO, ConvertsDtoToRequestArray
     {
         return [
             'phonebook_name' => $this->phoneNumber,
-            'email_address' => $this->email,
-            'first_name' => $this->firstName,
-            'last_name' => $this->lastName,
-            'company' => $this->companyName,
-            'country_code' => $this->countryCode,
+            'email_address'  => $this->email,
+            'first_name'     => $this->firstName,
+            'last_name'      => $this->lastName,
+            'company'        => $this->companyName,
+            'country_code'   => $this->countryCode,
         ];
     }
 }

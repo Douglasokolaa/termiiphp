@@ -20,16 +20,19 @@ class TermiiConnector extends Connector
     protected int $connectTimeout = 30;
 
     protected int $requestTimeout = 60;
+
     protected SenderIdResource $senderIdResource;
+
     protected MessagingResource $messagingResource;
+
     protected CampaignResource $campaignResource;
+
     protected TokenResource $tokenResource;
 
     public function __construct(
         protected readonly string $apiKey,
         protected readonly string $baseUrl
-    )
-    {
+    ) {
     }
 
     public function resolveBaseUrl(): string

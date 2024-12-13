@@ -17,8 +17,7 @@ class CampaignHistory implements Contracts\ConvertsArrayToDTO
         public readonly string $status,
         public readonly string $createdAt,
         public readonly string $updateAt,
-    )
-    {
+    ) {
     }
 
     public static function fromArray(array $data): CampaignHistory

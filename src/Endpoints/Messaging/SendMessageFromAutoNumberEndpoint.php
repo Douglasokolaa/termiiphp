@@ -29,7 +29,7 @@ class SendMessageFromAutoNumberEndpoint extends Request implements HasBody
     protected function defaultBody(): array
     {
         return [
-            'to' => $this->to,
+            'to'      => $this->to,
             'message' => $this->message,
         ];
     }

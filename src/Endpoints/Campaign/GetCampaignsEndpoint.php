@@ -32,7 +32,7 @@ class GetCampaignsEndpoint extends Request
     }
 
     /**
-     * @param Response $response
+     * @param  Response                $response
      * @return PaginatedData<Campaign>
      */
     public function createDtoFromResponse(Response $response): PaginatedData

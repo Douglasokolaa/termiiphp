@@ -17,17 +17,20 @@ use Okolaa\TermiiPHP\Endpoints\Campaign\Phonebook\ImportContactEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Campaign\Phonebook\UpdatePhonebookEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Campaign\SendCampaignEndpoint;
 use Okolaa\TermiiPHP\Enums\MessageChannel;
+
+use function Pest\Faker\fake;
+
 use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 use Saloon\Traits\Body\HasMultipartBody;
 use Saloon\Traits\Request\CreatesDtoFromResponse;
-use function Pest\Faker\fake;
 
-test('it can get phonebooks', closure: function () {
+test('it can get phonebooks', closure: function() {
     expect(GetPhonebooksEndpoint::class)
         ->toSendGetRequest()
         ->toUse(CreatesDtoFromResponse::class)
-        ->and($response = createTestConnector()
+        ->and(
+            $response = createTestConnector()
             ->campaignApi()
             ->phoneBook()
             ->get()
@@ -38,7 +41,7 @@ test('it can get phonebooks', closure: function () {
         ->and($response->dto()->data[0])->toBeInstanceOf(Phonebook::class);
 });
 
-test('it can create a phonebook', closure: function () {
+test('it can create a phonebook', closure: function() {
     expect(CreatePhonebookEndpoint::class)
         ->toSendPostRequest()
         ->toUse(HasJsonBody::class)
@@ -55,7 +58,7 @@ test('it can create a phonebook', closure: function () {
         ->toHaveKey('description', $phonebook->description);
 });
 
-test('it can update a phonebook', closure: function () {
+test('it can update a phonebook', closure: function() {
     expect(UpdatePhonebookEndpoint::class)
         ->toSendPatchRequest()
         ->toUse(HasJsonBody::class)
@@ -72,7 +75,7 @@ test('it can update a phonebook', closure: function () {
         ->toHaveKey('description', $phonebook->description);
 });
 
-test('it can delete a phonebook', closure: function () {
+test('it can delete a phonebook', closure: function() {
     expect(DeletePhonebookEndpoint::class)
         ->toSendDeleteRequest()
         ->and(
@@ -88,13 +91,11 @@ test('it can delete a phonebook', closure: function () {
         ->toEndWith('/api/phonebooks/phonebook-id');
 });
 
-
-test('it can fetch contacts', closure: function () {
+test('it can fetch contacts', closure: function() {
     expect(GetContactsEndpoint::class)
         ->toSendGetRequest()
         ->and(
-            $response =
-                createTestConnector()
+            $response = createTestConnector()
                     ->campaignApi()
                     ->phoneBook()
                     ->getContacts('phonebook-id')
@@ -108,7 +109,7 @@ test('it can fetch contacts', closure: function () {
         ->and($response->dto()->data[0])->toBeInstanceOf(Contact::class);
 });
 
-test('it can add a single contact to phonebook', closure: function () {
+test('it can add a single contact to phonebook', closure: function() {
     expect(AddContactEndpoint::class)
         ->toSendPostRequest()
         ->toUse(HasJsonBody::class)
@@ -126,7 +127,7 @@ test('it can add a single contact to phonebook', closure: function () {
         ->and($response->dto())->toBeInstanceOf(Contact::class);
 });
 
-test('it can add a multiple contact to phonebook', closure: function () {
+test('it can add a multiple contact to phonebook', closure: function() {
     expect(ImportContactEndpoint::class)
         ->toSendPostRequest()
         ->toUse(HasMultipartBody::class)
@@ -143,7 +144,7 @@ test('it can add a multiple contact to phonebook', closure: function () {
         ->toEndWith('/api/phonebooks/contacts/upload');
 });
 
-test('it can DELETE a contact to phonebook', closure: function () {
+test('it can DELETE a contact to phonebook', closure: function() {
     expect(DeleteContactEndpoint::class)
         ->toSendDeleteRequest()
         ->and(
@@ -159,7 +160,7 @@ test('it can DELETE a contact to phonebook', closure: function () {
         ->toEndWith('/api/phonebook/contact/contact-id');
 });
 
-test('it can send campaign', closure: function () {
+test('it can send campaign', closure: function() {
     expect(SendCampaignEndpoint::class)
         ->toSendPostRequest()
         ->toUse(HasJsonBody::class)
@@ -175,7 +176,7 @@ test('it can send campaign', closure: function () {
         ->toEndWith('/api/sms/campaigns/send');
 });
 
-test('it can fetch campaigns', closure: function () {
+test('it can fetch campaigns', closure: function() {
     expect(GetCampaignsEndpoint::class)
         ->toSendGetRequest()
         ->and(
@@ -189,10 +190,11 @@ test('it can fetch campaigns', closure: function () {
         ->toBeString()
         ->toEndWith('/api/sms/campaigns')
         ->and($response->dto())->toBeInstanceOf(PaginatedData::class)
-        ->and($response->dto()->data[0])->toBeInstanceOf(Campaign::class);;
+        ->and($response->dto()->data[0])->toBeInstanceOf(Campaign::class);
+    ;
 });
 
-test('it can fetch campaign HISTORY', closure: function () {
+test('it can fetch campaign HISTORY', closure: function() {
     expect(GetCampaignHistoryEndpoint::class)
         ->toSendGetRequest()
         ->and(

@@ -1,6 +1,5 @@
 <?php
 
-
 use Okolaa\TermiiPHP\Data\Token\InAppToken;
 use Okolaa\TermiiPHP\Data\Token\SendToken;
 use Okolaa\TermiiPHP\Data\Token\VoiceToken;
@@ -13,7 +12,7 @@ use Okolaa\TermiiPHP\Enums\TokenChannel;
 use Saloon\Http\Response;
 use Saloon\Traits\Body\HasJsonBody;
 
-test('it can send token', closure: function () {
+test('it can send token', closure: function() {
     expect(SendTokenEndpoint::class)
         ->toSendPostRequest()
         ->toUse(HasJsonBody::class)
@@ -49,7 +48,7 @@ test('it can send token', closure: function () {
         ->toBeString()
         ->toEndWith('/api/sms/otp/send');
 });
-test('it can verify token', closure: function () {
+test('it can verify token', closure: function() {
     expect(VerifyTokenEndpoint::class)
         ->toSendPostRequest()
         ->toUse(HasJsonBody::class)
@@ -70,7 +69,7 @@ test('it can verify token', closure: function () {
         ->toEndWith('/api/sms/otp/verify');
 });
 
-test('it can request token', closure: function () {
+test('it can request token', closure: function() {
     expect(EmailTokenEndpoint::class)
         ->toSendPostRequest()
         ->toUse(HasJsonBody::class)
@@ -92,7 +91,7 @@ test('it can request token', closure: function () {
         ->toEndWith('/api/email/otp/send');
 });
 
-test('it can check token status', closure: function () {
+test('it can check token status', closure: function() {
     expect(\Okolaa\TermiiPHP\Endpoints\Token\InAppTokenEndpoint::class)
         ->toSendPostRequest()
         ->toUse(HasJsonBody::class)
@@ -116,7 +115,7 @@ test('it can check token status', closure: function () {
         ->toEndWith('/api/sms/otp/generate');
 });
 
-test('it can send voice token', closure: function () {
+test('it can send voice token', closure: function() {
     expect(VoiceTokenEndpoint::class)
         ->toSendPostRequest()
         ->toUse(HasJsonBody::class)
@@ -141,7 +140,7 @@ test('it can send voice token', closure: function () {
         ->toEndWith('/api/sms/otp/send/voice');
 });
 
-test('it can send voice call token', closure: function () {
+test('it can send voice call token', closure: function() {
     expect(\Okolaa\TermiiPHP\Endpoints\Token\VoiceCallEndpoint::class)
         ->toSendPostRequest()
         ->toUse(HasJsonBody::class)

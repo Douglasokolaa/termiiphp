@@ -13,8 +13,7 @@ class SenderId implements ConvertsArrayToDTO, ConvertsDtoToRequestArray
         public readonly ?string $useCase,
         public readonly ?string $country = null,
         public readonly ?string $status = null,
-    )
-    {
+    ) {
     }
 
     public static function fromArray(array $data): SenderId
@@ -32,8 +31,8 @@ class SenderId implements ConvertsArrayToDTO, ConvertsDtoToRequestArray
     {
         return [
             'sender_id' => $this->id,
-            'usecase' => $this->useCase,
-            'company' => $this->company
+            'usecase'   => $this->useCase,
+            'company'   => $this->company
         ];
     }
 }

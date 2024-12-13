@@ -32,7 +32,7 @@ class GetSenderIdsEndpoint extends Request
     }
 
     /**
-     * @param Response $response
+     * @param  Response                $response
      * @return PaginatedData<SenderId>
      */
     public function createDtoFromResponse(Response $response): PaginatedData

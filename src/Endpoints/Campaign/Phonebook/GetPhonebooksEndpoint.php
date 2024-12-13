@@ -32,7 +32,7 @@ class GetPhonebooksEndpoint extends Request
     }
 
     /**
-     * @param Response $response
+     * @param  Response                 $response
      * @return PaginatedData<Phonebook>
      */
     public function createDtoFromResponse(Response $response): PaginatedData

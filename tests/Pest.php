@@ -24,7 +24,6 @@ pest()->extend(Tests\TestCase::class)
     ->group('feature')
     ->in('Feature');
 
-
 pest()->extend(Tests\TestCase::class)
     ->group('unit')
     ->in('Unit');
@@ -40,7 +39,7 @@ pest()->extend(Tests\TestCase::class)
 |
 */
 
-expect()->extend('toBeOne', function () {
+expect()->extend('toBeOne', function() {
     return $this->toBe(1);
 });
 
@@ -57,7 +56,6 @@ expect()->extend('toBeOne', function () {
 
 function createTestConnector(?MockClient $mockClient = null): \Okolaa\TermiiPHP\TermiiConnector
 {
-
     $connector = Termii::initialize('api-key');
     $connector->getAuthenticator();
 
@@ -70,7 +68,7 @@ function createTestConnector(?MockClient $mockClient = null): \Okolaa\TermiiPHP\
 
 function createTestEndpoint(Method $method = Method::GET): Request
 {
-    return new class($method) extends Request implements HasBody {
+    return new class ($method) extends Request implements HasBody {
         use HasJsonBody;
 
         public function __construct(Method $method)
@@ -85,10 +83,9 @@ function createTestEndpoint(Method $method = Method::GET): Request
     };
 }
 
-
 Config::preventStrayRequests();
 
 uses()
-    ->beforeEach(fn() => MockClient::destroyGlobal())
-    ->beforeEach(fn() => TestCase::initGlobalMockClient())
+    ->beforeEach(fn () => MockClient::destroyGlobal())
+    ->beforeEach(fn () => TestCase::initGlobalMockClient())
     ->in(__DIR__);
