@@ -3,6 +3,7 @@
 namespace Okolaa\TermiiPHP;
 
 use Okolaa\TermiiPHP\Resources\Campaign\CampaignResource;
+use Okolaa\TermiiPHP\Resources\InsightResource;
 use Okolaa\TermiiPHP\Resources\MessagingResource;
 use Okolaa\TermiiPHP\Resources\SenderIdResource;
 use Okolaa\TermiiPHP\Resources\TokenResource;
@@ -28,6 +29,8 @@ class TermiiConnector extends Connector
     protected CampaignResource $campaignResource;
 
     protected TokenResource $tokenResource;
+
+    private InsightResource $insightResource;
 
     public function __construct(
         protected readonly string $apiKey,
@@ -58,6 +61,11 @@ class TermiiConnector extends Connector
     public function tokenApi(): TokenResource
     {
         return $this->tokenResource ??= new TokenResource($this);
+    }
+
+    public function insightApi(): InsightResource
+    {
+        return $this->insightResource ??= new InsightResource($this);
     }
 
     protected function defaultAuth(): TermiiAuthenticator

@@ -13,6 +13,10 @@ use Okolaa\TermiiPHP\Endpoints\Campaign\Phonebook\GetPhonebooksEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Campaign\Phonebook\ImportContactEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Campaign\Phonebook\UpdatePhonebookEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Campaign\SendCampaignEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Insight\GetBalanceEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Insight\HistoryEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Insight\PhoneNumberStatusEndpoint;
+use Okolaa\TermiiPHP\Endpoints\Insight\SearchPhoneNumberEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Messaging\GetSenderIdsEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Messaging\RequestSenderIdEndpoint;
 use Okolaa\TermiiPHP\Endpoints\Messaging\SendBulkMessageEndpoint;
@@ -94,6 +98,15 @@ abstract class TestCase extends BaseTestCase
             EmailTokenEndpoint::class         => MockResponse::make(),
             InAppTokenEndpoint::class         => MockResponse::fixture('in_app_token.json'),
             VoiceCallEndpoint::class          => MockResponse::make(),
+            GetBalanceEndpoint::class         => MockResponse::fixture('get_balance.json'),
+            SearchPhoneNumberEndpoint::class  => MockResponse::make([
+                'number'       => '2347089509657',
+                'status'       => 'DND blacklisted',
+                'network'      => 'Airtel Nigeria',
+                'network_code' => '62120',
+            ]),
+            PhoneNumberStatusEndpoint::class => MockResponse::fixture('phone_number_status.json'),
+            HistoryEndpoint::class           => MockResponse::fixture('history.json'),
         ]);
     }
 }
