@@ -189,14 +189,109 @@ $importedContactsResponse = $termii->campaignApi()->phoneBook()->importContact($
 $fetchedContactsResponse = $termii->campaignApi()->phoneBook()->getContacts($phonebook->id, $pageNumber);
 $deleteContactResponse = $termii->campaignApi()->phoneBook()->deleteContact($contact->id);
 ```
-```
 
-#### Token
+## Token API
 
-Token allows businesses to generate, send, and verify one-time-passwords.
+The `TokenApi` in the Termii PHP SDK enables businesses to **generate**, **send**, and **verify One-Time Passwords (
+OTPs)**.
+It's a powerful feature tailored for two-factor authentication and secure user verification processes.
+
+### Send Token
 
 ```php
+use Okolaa\TermiiPHP\Data\TokenSend;
+use Okolaa\TermiiPHP\Termii;
 
+$termii = Termii::initialize('api-token');
+
+$tokenSend = new \Okolaa\TermiiPHP\Data\Token\SendToken(
+    to: "23490555546",
+    from: "talert",
+    messageText: "Your verification code is <%pin%>",
+    pinType: \Okolaa\TermiiPHP\Enums\PinType::AlphaNumeric,
+    pinAttempts: 3,
+    pinTimeToLiveMinute: 5,
+    pinLength: 6,
+    pinPlaceHolder: "<%pin%>",
+    channel: \Okolaa\TermiiPHP\Enums\MessageChannel::DND
+    messageType: 'plain',
+);
+
+$response = $termii->tokenApi()->send($tokenSend);
+```
+
+### Voice Token
+
+The voice token API enables you to generate and trigger one-time passwords (OTP) through the voice channel to a phone
+number.
+
+```php
+use Okolaa\TermiiPHP\Data\Token\VoiceToken;
+use Okolaa\TermiiPHP\Termii;
+
+$termii = Termii::initialize('api-token');
+
+$voiceToken = new VoiceToken(
+    phoneNumber: "2348000000000",
+    pin_length: 6
+);
+
+$response = $termii->tokenApi()->voice($voiceToken);
+```
+
+### Voice Call Token
+
+The voice call API enables you to send messages from your application through our voice channel to a phone number.
+
+```php
+use Okolaa\TermiiPHP\Data\Token\VoiceToken;
+use Okolaa\TermiiPHP\Termii;
+
+$termii = Termii::initialize('api-token');
+
+$response = $termii->tokenApi()->voiceCall('2348000000000', '12345);
+```
+
+### Verify Token
+
+Verify token API, checks tokens sent to customers and returns a response confirming the status of the token.
+
+```php
+use Okolaa\TermiiPHP\Termii;
+
+$termii = Termii::initialize('api-token');
+
+$response = $termii->tokenApi()->verify('pinId', 'the-pin-code');
+```
+
+### Email Token
+
+The email token API enables you to send one-time-passwords from your application through our email channel to an email
+address.
+
+```php
+use Okolaa\TermiiPHP\Termii;
+
+$termii = Termii::initialize('api-token');
+
+$response = $termii->tokenApi()->email('test@test.com', 'the-pin-code', 'email-config-id');
+```
+
+### In-App Token
+
+This API returns OTP codes in JSON format which can be used within any web or mobile app.
+
+```php
+use Okolaa\TermiiPHP\Termii;
+
+$termii = Termii::initialize('api-token');
+
+$payload = new \Okolaa\TermiiPHP\Data\Token\InAppToken(
+            pinType: \Okolaa\TermiiPHP\Enums\PinType::Numeric,
+            phoneNumber: '2348000000000'
+         );
+
+$response = $termii->tokenApi()->inApp($payload);
 ```
 
 ## Advanced Configuration
