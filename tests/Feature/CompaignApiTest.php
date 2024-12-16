@@ -135,7 +135,7 @@ test('it can add a multiple contact to phonebook', closure: function() {
             $response = createTestConnector()
                 ->campaignApi()
                 ->phoneBook()
-                ->importContact('phonebook-id', 'NG', fake()->file('./'))
+                ->importContact('phonebook-id', 'NG', fake()->file('./', './vendor'))
         )
         ->toBeInstanceOf(Response::class)
         ->and($response->status())->toBe(200)
