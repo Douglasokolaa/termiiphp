@@ -1,0 +1,27 @@
+name: PHPStan
+
+on:
+  push:
+    paths:
+      - '**.php'
+  pull_request:
+    branches: [ "master", "develop" ]
+
+jobs:
+  php-cs-lint:
+    name: analyze
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: none
+
+      - uses: actions/checkout@v4
+
+      - name: Install composer dependencies
+        run: composer install -q --no-ansi --no-interaction --no-progress --prefer-dist
+
+      - name: Lint
+        run: ./vendor/bin/php-cs-fixer check --allow-risky=yes
