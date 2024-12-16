@@ -9,11 +9,16 @@
     "api"
   ],
   "require": {
-    "guzzlehttp/guzzle": "^6.2 || ^7.0",
-    "vlucas/phpdotenv": "^5.2"
+    "php": "^8.2",
+    "saloonphp/saloon": "^3.10",
+    "symfony/var-dumper": "^7.2"
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.4"
+    "pestphp/pest": "^3.5",
+    "pestphp/pest-plugin-faker": "^3.0",
+    "jonpurvis/lawman": "^3.1",
+    "phpstan/phpstan": "^2.0",
+    "friendsofphp/php-cs-fixer": "^3.65"
   },
   "autoload": {
     "psr-4": {
@@ -37,5 +42,10 @@
       "dev-master": "1.0-dev"
     }
   },
-  "prefer-stable": true
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
 }

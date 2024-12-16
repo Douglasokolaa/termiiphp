@@ -1,16 +1,20 @@
-<phpunit bootstrap="vendor/autoload.php"
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.3/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
          colors="true"
-         testdox="true"
-         verbose="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true">
+         failOnDeprecation="true"
+         failOnWarning="true"
+         failOnNotice="true"
+>
     <testsuites>
-        <testsuite name="Termii Tests">
-            <directory>tests</directory>
+        <testsuite name="Test Suite">
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
-    <php>
-        <server name="API_KEY" value="testing"/>
-    </php>
+    <source>
+        <include>
+            <directory>./src</directory>
+        </include>
+    </source>
 </phpunit>
